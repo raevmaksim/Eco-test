@@ -3,9 +3,110 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Тест на экологическое сознание</title>
 </head>
 <body>
+  <div class="main" id="app">
+    <div class="app" v-if="showMain">
+      <div class="app__header">
+        <img src="img/logo.png" alt="Logo" class="app__logo">
+      </div>
+      <div class="app__body">
+        <h1>Тест<br>на экологическое сознание</h1>
+        <button class="app__btn" @click="goToQuestions">
+          <img src="img/play.svg" alt="play">
+          <p class="app__btn-text">
+            |
+          </p>
+          <div class="app__btn-text">
+            Начать
+          </div>
+        </button>
+        <button class="app__btn" @click="goToSocial">
+          <img src="img/social.svg" alt="social">
+          <p class="app__btn-text">
+            |
+          </p>
+          <div class="app__btn-text">
+            Соц.сети
+          </div>
+        </button>
+      </div>
+    </div>
+    <!-- Questions -->
   
+    <div class="app" v-if="showQuestions">
+      <div class="app__header">
+        <div class="app__header-inner">
+          <div class="app__count"># {{ number+1 }}</div>
+          <div class="app__text">{{ questions[number][0] }}</div>
+        </div>
+      </div>
+      <div class="app__body">
+        <button class="app__btn"
+        v-for="(answer, i) in questions[number][1]"
+        @click="nextQuestions(questions[number][2][i])">
+          <div class="app__btn-text">
+            {{ answer }}
+          </div>
+        </button>
+      </div>
+    </div>    
+
+  <!-- Social -->
+
+    <div class="app" v-if="showSocial">
+      <div class="app__body">
+        <button href="#" class="app__btn"><img src="img/instagram.svg" alt="instagram"><p>|</p>
+          <div class="app__btn-text">Instagram</div></button>
+        <button href="#" class="app__btn"><img src="img/twitter.svg" alt="twitter"><p>|</p>
+          <div class="app__btn-text">Twitter</div></button>
+        <button href="#" class="app__btn"><img src="img/facebook.svg" alt="facebook"><p>|</p>
+          <div class="app__btn-text">Fcebook</div></button>
+        <button href="#" class="app__btn"><img src="img/vk.svg" alt="vk"><p>|</p>
+          <div class="app__btn-text">Vkontakte</div></button>
+        <button href="#" class="app__btn"><img src="img/youtube.svg" alt="youtube"><p>|</p>
+          <div class="app__btn-text">Youtube</div></button>
+        <button class="app__btn btn__back" @click="goToMain">
+          <img src="img/home.svg" alt="">
+        </button>
+      </div>
+    </div>
+  
+
+  <!-- Results -->
+
+  <div class="app results" v-if="showResult" :data-race="resultRace">
+    <div class="app__body">
+      <div class="app__results-inner">        
+        <div class="results__img"><img :src="'img/'+resultRace+'_logo.png'"></div>
+        <div class="results__title">{{ results[resultRace].name }}</div>
+        <div class="results__text-box">
+          <p class="result__text">{{ results[resultRace].description }}</p><br>
+          <h2>Рекомендации</h2>
+          <br>
+          <p class="result__quote">{{ results[resultRace].quote1 }}</p><br>
+          <p class="result__quote">{{ results[resultRace].quote2 }}</p><br>
+          <p class="result__author">{{ results[resultRace].quote3 }}</p>
+        </div>
+        <div>
+          <button :class="'app__btn btn__back btn__'+resultRace" @click="goToMain">
+            <img src="img/home.svg" alt=""></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  
+  <script src="js/vue.global.js"></script>
+  <script src="js/consts.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
